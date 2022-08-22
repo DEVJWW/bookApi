@@ -11,6 +11,8 @@ import java.util.stream.Collectors;
 
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class BookDto {
 
     private Integer id;
@@ -23,9 +25,7 @@ public class BookDto {
     @ApiModelProperty(value = "massage",example = "RETURN 메세지")
     private String message;
     private List<CategoryDto> categoryData;
-    public BookDto() {
 
-    }
     public BookDto(Book book){
 
         id= book.getId();
