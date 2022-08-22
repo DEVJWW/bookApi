@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @DataJpaTest
@@ -35,7 +36,7 @@ class InsertControllerTest {
     void insert() {
 
 
-        Category category =new Category();
+        Category category = new Category();
         category.setCategory("TEST_CATE");
         Set<Category> categoryTest = new HashSet<>();
         categoryTest.add(category);
@@ -47,35 +48,38 @@ class InsertControllerTest {
         book.setCategoryData(categoryTest);
         category.setBook(book);
 
-        Book bookList= bookRepository.save(book);
+        Book bookList = bookRepository.save(book);
 
-        assertEquals("TEST_NAME",bookList.getName());
-        assertEquals(categoryTest,bookList.getCategoryData());
+        assertEquals("TEST_NAME", bookList.getName());
+        assertEquals(categoryTest, bookList.getCategoryData());
+        assertEquals(categoryTest.size(), book.getCategoryData().size());
 
-      
     }
+
     @DisplayName("다중저장")
     @Test
     void insertAll() {
 
         List<Book> bookList = new ArrayList<>();
         Set<Category> categoryList = new HashSet<>();
-        for(int i=0;i<11;i++){
-            Book book= new Book();
-            book.setWriter("TEST_WRITER_"+i);
-            book.setName("TEST_NAME_"+i);
-            for(int j=0;j<6;j++){
-               Category category =new Category();
-               category.setCategory("TEST_CATE_"+j);
-               category.setBook(book);
-               categoryList.add(category);
+
+        for (int i = 0; i < 11; i++) {
+            Book book = new Book();
+            book.setWriter("TEST_WRITER_" + i);
+            book.setName("TEST_NAME_" + i);
+            for (int j = 0; j < 6; j++) {
+
+                Category category = new Category();
+                category.setCategory("TEST_CATE_" + j);
+                category.setBook(book);
+                categoryList.add(category);
             }
             book.setCategoryData(categoryList);
             bookList.add(book);
 
         }
 
-        List<Book> bookListTest= bookRepository.saveAll(bookList);
-        assertEquals(bookList,bookListTest);
+        List<Book> bookListTest = bookRepository.saveAll(bookList);
+        assertEquals(bookList, bookListTest);
     }
 }

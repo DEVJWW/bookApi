@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.*;
 
 
-// TODO GETTER SETTER 제거 ,builder생성
+
 @Entity(name = "BOOKLIST")
 @Getter
 @Setter
@@ -24,7 +24,6 @@ public class Book {
     private String name;
 
     private String status;
-
 
     @OneToMany(mappedBy = "book" ,cascade = CascadeType.ALL ,orphanRemoval = true)
     private Set<Category> categoryData = new HashSet<>();

@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Setter
 @DynamicInsert
 @DynamicUpdate
-@ToString
 public class Category {
 
     @Id

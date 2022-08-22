@@ -97,6 +97,7 @@ public class BookService {
     }
 
     public void updateCategory(List<CategoryModifyDto> bookList) {
+
         List<Book> books = bookList.stream().map(CategoryModifyDto -> modelMapper.map(CategoryModifyDto, Book.class)).collect(Collectors.toList());
 
         List<Integer> ids = new ArrayList<>();

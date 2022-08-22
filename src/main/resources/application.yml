@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/devww?characterEncoding=UTF-8&serverTimezone=UTC
-    username: devww
-    password: devww
+    url: jdbc:mariadb://localhost:3306/bookdata?characterEncoding=UTF-8&serverTimezone=UTC
+    username: book
+    password: book@@
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
