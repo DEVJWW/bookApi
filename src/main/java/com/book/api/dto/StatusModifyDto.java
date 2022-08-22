@@ -3,6 +3,7 @@ package com.book.api.dto;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
@@ -12,7 +13,7 @@ public class StatusModifyDto {
 
     @ApiModelProperty(value="book_id", example = "도서ID")
     private Integer id;
-    @ApiModelProperty(value="status", example = "도서 이름")
+    @ApiModelProperty(value="status", example = "대여가능상태값 ( Y or N )")
     private String status;
 
 }

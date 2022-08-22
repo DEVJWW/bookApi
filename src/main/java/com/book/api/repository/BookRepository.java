@@ -10,9 +10,10 @@ import java.util.Optional;
 //TODO 네이밍 변경
 public interface BookRepository extends JpaRepository<Book, Integer> {
     boolean existsByWriterAndName(String writer, String name);
-    Optional<Book> findById(Integer id);
+
     List<Book> findALLByWriterAndName(String writer, String name);
     List<Book> findALLByWriterContainingOrNameContaining(String writer, String name);
+
     @Query("SELECT DISTINCT b FROM BOOKLIST b JOIN FETCH b.categoryData c WHERE c.category =:category")
     List<Book> findAllByCategoryDataContaining(String category);
 

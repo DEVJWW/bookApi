@@ -15,7 +15,6 @@ import java.util.*;
 @Setter
 @DynamicInsert
 @DynamicUpdate
-@ToString
 public class Book {
     @Id
     @Column(name = "BOOK_ID")
@@ -29,6 +28,5 @@ public class Book {
 
     @OneToMany(mappedBy = "book" ,cascade = CascadeType.ALL ,orphanRemoval = true)
     private Set<Category> categoryData = new HashSet<>();
-
 
 }

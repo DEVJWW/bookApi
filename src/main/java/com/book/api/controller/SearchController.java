@@ -30,7 +30,7 @@ public class SearchController {
     BookService bookService;
 
     @ApiOperation(value = "카테고리 검색 메소드")
-    @ApiImplicitParam(name = "category", value = "카테고리 검색 ", dataType = "String")
+    @ApiImplicitParam(name = "category", value="카테고리")
     @GetMapping("/c-search/{category}")
     public ResponseEntity searchByCategory(@PathVariable String category) {
 
@@ -41,7 +41,7 @@ public class SearchController {
     @ApiOperation(value = "카테고리/도서명 검색 메소드")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "category", value = "카테고리 검색 ", dataType = "String"),
-            @ApiImplicitParam(name = "name", value = "카테고리 검색 ", dataType = "String")}
+            @ApiImplicitParam(name = "name", value = "도서명 검색 ", dataType = "String")}
     )
     @GetMapping("/cn-search/{category}/{name}")
     public ResponseEntity searchByCategoryName(@PathVariable String category, @PathVariable String name) {

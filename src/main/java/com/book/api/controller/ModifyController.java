@@ -18,7 +18,7 @@ import java.util.List;
 })
 @RestController
 public class ModifyController {
-    //TODO CATEGORY UPDATE 추가 or 제거
+
     @Autowired
     BookService bookService;
     @Autowired

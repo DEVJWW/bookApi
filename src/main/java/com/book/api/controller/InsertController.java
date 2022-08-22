@@ -22,7 +22,7 @@ public class InsertController {
 
 
     @ApiOperation(value = "도서이름 / 도서저자 / 카테고리 INSERT 메소드")
-    @ApiImplicitParam(name = "bookList", value = "INSERT하기위한 도서정보리스트", dataType = "list")
+    @ApiImplicitParam(name = "bookList", value = "도서정보리스트", dataType = "list")
     @ApiResponses({
             @ApiResponse(code = 200, message = "성공시 200코드 리턴"),
             @ApiResponse(code = 400, message = "실패시 400리턴 + INSERT 실패 DATA ")
