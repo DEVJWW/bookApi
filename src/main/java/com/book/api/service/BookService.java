@@ -122,7 +122,7 @@ public class BookService {
 
     public List<Book> findAllByCategory(String category) {
 
-        List<Book> bookList = bookRepository.findAllByCategoryDataContaining(category);
+        List<Book> bookList = bookRepository.findAllByCategoryData(category);
 
         return bookList;
     }
@@ -160,7 +160,9 @@ public class BookService {
         List<BookDto> returnList = books.stream().map(BookDto::new).collect(Collectors.toList());
 
         if (returnList.size() == 0) {
-            return new ResponseEntity("No BOOK", HttpStatus.BAD_REQUEST);
+            ErrorResponse response = new ErrorResponse();
+            response.setMessage("NO Book");
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
         } else {
             return new ResponseEntity(returnList, HttpStatus.OK);
         }

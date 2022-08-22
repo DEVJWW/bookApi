@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CategoryDto {
 
-     private String category;
+    private String category;
 
-     public CategoryDto(Category categoryData){
-         category =categoryData.getCategory();
-     }
+    public CategoryDto(Category categoryData) {
+        category = categoryData.getCategory();
+    }
 }

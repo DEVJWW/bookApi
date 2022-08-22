@@ -1,4 +1,5 @@
 package com.book.api.entity;
+
 import com.fasterxml.jackson.annotation.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -6,6 +7,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.persistence.*;
+
 // TODO GETTER SETTER 제거 ,builder생성
 @Entity
 @Table(name = "CATEGORYDATA")
@@ -25,7 +27,6 @@ public class Category {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "book_id")
     private Book book;
-
 
 
 }

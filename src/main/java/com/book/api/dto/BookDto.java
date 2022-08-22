@@ -12,26 +12,25 @@ import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class BookDto {
 
     private Integer id;
-    @ApiModelProperty(value = "writer",example = "작가명")
+    @ApiModelProperty(value = "writer", example = "작가명")
     private String writer;
-    @ApiModelProperty(value = "name",example = "도서이름")
+    @ApiModelProperty(value = "name", example = "도서이름")
     private String name;
-    @ApiModelProperty(value = "status",example = "대여상태 Y or N")
+    @ApiModelProperty(value = "status", example = "대여상태 Y or N")
     private String status;
-    @ApiModelProperty(value = "massage",example = "RETURN 메세지")
+    @ApiModelProperty(value = "massage", example = "RETURN 메세지")
     private String message;
     private List<CategoryDto> categoryData;
 
-    public BookDto(Book book){
+    public BookDto(Book book) {
 
-        id= book.getId();
-        writer= book.getName();
-        status=book.getStatus();
-        categoryData=book.getCategoryData().stream().map(CategoryDto::new).collect(Collectors.toList());
+        id = book.getId();
+        writer = book.getName();
+        status = book.getStatus();
+        categoryData = book.getCategoryData().stream().map(CategoryDto::new).collect(Collectors.toList());
 
     }
 

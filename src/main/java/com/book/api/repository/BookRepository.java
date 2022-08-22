@@ -17,7 +17,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     List<Book> findALLByWriterContainingOrNameContaining(String writer, String name);
 
     @Query("SELECT DISTINCT b FROM BOOKLIST b JOIN FETCH b.categoryData c WHERE c.category =:category")
-    List<Book> findAllByCategoryDataContaining(String category);
+    List<Book> findAllByCategoryData(String category);
 
     @Query("SELECT DISTINCT b FROM BOOKLIST b JOIN FETCH b.categoryData c WHERE c.category =:category AND b.name LIKE %:name%")
     List<Book> findAllByCategoryDataAndNameContaining(String category, String name);
