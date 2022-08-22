@@ -3,11 +3,12 @@ package com.book.api.repository;
 import com.book.api.entity.Book;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 
-//TODO 네이밍 변경
+@Repository
 public interface BookRepository extends JpaRepository<Book, Integer> {
     boolean existsByWriterAndName(String writer, String name);
 

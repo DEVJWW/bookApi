@@ -39,9 +39,10 @@ CONSTRAINT `categorydata_FK` FOREIGN KEY (`BOOK_ID`) REFERENCES `booklist` (`BOO
 
 
 
---
 
-setter 관련 builder변경
+TODO
+
+setter 관련 BUILDER
 
 
 DTO 변경필요 (category참조)
