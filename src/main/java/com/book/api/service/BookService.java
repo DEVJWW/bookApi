@@ -158,7 +158,7 @@ public class BookService {
 
     public ResponseEntity getResponseEntity(List<Book> books) {
         List<BookDto> returnList = books.stream().map(BookDto::new).collect(Collectors.toList());
-
+            
         if (returnList.size() == 0) {
             ErrorResponse response = new ErrorResponse();
             response.setMessage("NO Book");

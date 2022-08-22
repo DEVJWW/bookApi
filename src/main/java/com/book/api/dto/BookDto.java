@@ -28,7 +28,8 @@ public class BookDto {
     public BookDto(Book book) {
 
         id = book.getId();
-        writer = book.getName();
+        writer = book.getWriter();
+        name = book.getName();
         status = book.getStatus();
         categoryData = book.getCategoryData().stream().map(CategoryDto::new).collect(Collectors.toList());
 
