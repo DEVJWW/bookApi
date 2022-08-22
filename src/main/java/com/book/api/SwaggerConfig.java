@@ -33,12 +33,14 @@ public class SwaggerConfig {
                 .paths(PathSelectors.any())
                 .build();
     }
+
     @Bean
-     public UiConfiguration uiConfig() {
+    public UiConfiguration uiConfig() {
         return UiConfigurationBuilder.builder()
                 .defaultModelsExpandDepth(-1)
                 .build();
     }
+
     public ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title(API_NAME)

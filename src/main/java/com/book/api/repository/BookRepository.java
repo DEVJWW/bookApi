@@ -13,6 +13,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     boolean existsByWriterAndName(String writer, String name);
 
     List<Book> findALLByWriterAndName(String writer, String name);
+
     List<Book> findALLByWriterContainingOrNameContaining(String writer, String name);
 
     @Query("SELECT DISTINCT b FROM BOOKLIST b JOIN FETCH b.categoryData c WHERE c.category =:category")
@@ -23,6 +24,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
     @Query("SELECT DISTINCT b FROM BOOKLIST b JOIN FETCH b.categoryData c WHERE c.category =:category AND b.writer LIKE %:writer%")
     List<Book> findAllByCategoryDataAndWriterContaining(String category, String writer);
+
     @Query(
             value = "SELECT * FROM (" +
                     "SELECT distinct b.* FROM BOOKLIST b inner join categorydata c on b.BOOK_ID =c.BOOK_ID WHERE c.category = ?1" +
@@ -30,7 +32,6 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
                     "WHERE d.writer like ?2% or d.name like ?3%",
             nativeQuery = true)
     List<Book> findAllByCategoryDataAndWriterContainingAndNameContaining(String category, String writer, String name);
-
 
 
 }

@@ -1,12 +1,9 @@
 package com.book.api.service;
 
-import com.book.api.dto.CategoryModifyDto;
-import com.book.api.dto.InsertDto;
-import com.book.api.dto.StatusModifyDto;
+import com.book.api.dto.*;
 import com.book.api.entity.Book;
 import com.book.api.entity.Category;
 import com.book.api.repository.BookRepository;
-import com.book.api.dto.BookDto;
 import com.book.api.repository.CategoryRepository;
 import com.book.api.util.DeduplicationUtils;
 
@@ -29,22 +26,19 @@ public class BookService {
     ModelMapper modelMapper;
     @Autowired
     BookRepository bookRepository;
-    @Autowired
-    CategoryRepository categoryRepository;
-    //TODO List to  Entity
-    //Exception
-    //Response DTO 생성
-
-    public List<InsertDto> save(List<InsertDto> bookList) {
 
 
-        List<InsertDto> returnList = new ArrayList<>();
-        List<InsertDto> newList = new ArrayList<>();
+    public List<BookDto> save(List<BookDto> bookList) {
+
+
+        List<BookDto> returnList = new ArrayList<>();
+        List<BookDto> newList = new ArrayList<>();
+
         for (int k = 0; k < bookList.size(); k++) {
 
             String writer = bookList.get(k).getWriter();
             String name = bookList.get(k).getName();
-            //순서확인 todo
+
             if (bookRepository.existsByWriterAndName(writer, name)) {
                 bookList.get(k).setMessage("Exist Book");
                 returnList.add(bookList.get(k));
@@ -65,8 +59,9 @@ public class BookService {
             book.setWriter(newList.get(i).getWriter());
             book.setName(newList.get(i).getName());
 
-            List<Category> data = new ArrayList<>(newList.get(i).getCategoryData());
-            data = DeduplicationUtils.deduplication(data, Category::getCategory);
+            List<CategoryDto> data = new ArrayList<>(newList.get(i).getCategoryData());
+
+            data = DeduplicationUtils.deduplication(data, CategoryDto::getCategory);
             for (int j = 0; j < data.size(); j++) {
                 Category category = new Category();
                 category.setBook(book);
@@ -81,7 +76,7 @@ public class BookService {
         return returnList;
     }
 
-    public void updateStatus(List<StatusModifyDto> bookList) {
+    public void updateStatus(List<BookDto> bookList) {
 
 
         List<Book> books = new ArrayList<>();
@@ -96,9 +91,9 @@ public class BookService {
 
     }
 
-    public void updateCategory(List<CategoryModifyDto> bookList) {
+    public void updateCategory(List<BookDto> bookList) {
 
-        List<Book> books = bookList.stream().map(CategoryModifyDto -> modelMapper.map(CategoryModifyDto, Book.class)).collect(Collectors.toList());
+        List<Book> books = bookList.stream().map(BookDto -> modelMapper.map(BookDto, Book.class)).collect(Collectors.toList());
 
         List<Integer> ids = new ArrayList<>();
         for (Book book : books) {
@@ -110,6 +105,7 @@ public class BookService {
             booksListById.get(i).getCategoryData().clear();
         }
         bookRepository.saveAll(booksListById);
+
         for (int j = 0; j < booksListById.size(); j++) {
             List<Category> data = new ArrayList<>(books.get(j).getCategoryData());
             data = DeduplicationUtils.deduplication(data, Category::getCategory);
@@ -161,14 +157,11 @@ public class BookService {
 
 
     public ResponseEntity getResponseEntity(List<Book> books) {
-        List<BookDto> returnList = books.stream().map(Book -> modelMapper.map(Book, BookDto.class)).collect(Collectors.toList());
+        List<BookDto> returnList = books.stream().map(BookDto::new).collect(Collectors.toList());
 
         if (returnList.size() == 0) {
-            BookDto bookDto = new BookDto();
-            bookDto.setMessage("No Books");
-            return new ResponseEntity(bookDto, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("No BOOK", HttpStatus.BAD_REQUEST);
         } else {
-
             return new ResponseEntity(returnList, HttpStatus.OK);
         }
     }

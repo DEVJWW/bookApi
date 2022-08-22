@@ -7,12 +7,10 @@ import com.book.api.repository.BookRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 
 import java.util.ArrayList;
@@ -38,7 +36,7 @@ class InsertControllerTest {
 
         Category category = new Category();
         category.setCategory("TEST_CATE");
-        Set<Category> categoryTest = new HashSet<>();
+        List<Category> categoryTest = new ArrayList<>();
         categoryTest.add(category);
 
         Book book = new Book();
@@ -61,7 +59,7 @@ class InsertControllerTest {
     void insertAll() {
 
         List<Book> bookList = new ArrayList<>();
-        Set<Category> categoryList = new HashSet<>();
+        List<Category> categoryList = new ArrayList<>();
 
         for (int i = 0; i < 11; i++) {
             Book book = new Book();

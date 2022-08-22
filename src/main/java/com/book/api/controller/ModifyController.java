@@ -1,7 +1,6 @@
 package com.book.api.controller;
 
-import com.book.api.dto.CategoryModifyDto;
-import com.book.api.dto.StatusModifyDto;
+import com.book.api.dto.BookDto;
 import com.book.api.service.BookService;
 import io.swagger.annotations.*;
 import org.modelmapper.ModelMapper;
@@ -25,21 +24,23 @@ public class ModifyController {
     ModelMapper modelMapper;
 
     @ApiOperation(value = "상태 변경 메소드")
-    @ApiImplicitParam(name = "bookList", value = "상태값 변경 ", dataType = "list")
-     @PutMapping("/s-modify")
-    public ResponseEntity sModify(@RequestBody List<StatusModifyDto> bookList) {
+    @ApiImplicitParam(name = "bookList", value = "도서ID값과 STATUS만사용", dataType = "list")
+    @PutMapping("/s-modify")
+    public ResponseEntity sModify(@RequestBody List<BookDto> bookList) {
 
         bookService.updateStatus(bookList);
+
         return new ResponseEntity(HttpStatus.OK);
 
     }
 
     @ApiOperation(value = "카테고리 변경 메소드")
-    @ApiImplicitParam(name = "bookList", value = "카테고리 변경 ", dataType = "list")
+    @ApiImplicitParam(name = "bookList", value = "도서 ID값과 categoryData만 사용", dataType = "list")
     @PutMapping("/c-modify")
-    public ResponseEntity cModify(@RequestBody List<CategoryModifyDto> bookList) {
+    public ResponseEntity cModify(@RequestBody List<BookDto> bookList) {
 
         bookService.updateCategory(bookList);
+
         return new ResponseEntity(HttpStatus.OK);
     }
 }

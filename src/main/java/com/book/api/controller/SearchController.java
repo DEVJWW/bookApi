@@ -7,6 +7,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 
@@ -23,11 +24,12 @@ public class SearchController {
     BookService bookService;
 
     @ApiOperation(value = "카테고리 검색 메소드")
-    @ApiImplicitParam(name = "category", value="카테고리")
+    @ApiImplicitParam(name = "category", value = "카테고리")
     @GetMapping("/c-search/{category}")
     public ResponseEntity searchByCategory(@PathVariable String category) {
 
         List<Book> books = bookService.findAllByCategory(category);
+
         return bookService.getResponseEntity(books);
     }
 
@@ -40,6 +42,7 @@ public class SearchController {
     public ResponseEntity searchByCategoryName(@PathVariable String category, @PathVariable String name) {
 
         List<Book> books = bookService.findAllByCategoryAndName(category, name);
+
         return bookService.getResponseEntity(books);
 
     }
@@ -53,6 +56,7 @@ public class SearchController {
     public ResponseEntity searchByCategoryWriter(@PathVariable String category, @PathVariable String writer) {
 
         List<Book> books = bookService.findAllByCategoryAndWriter(category, writer);
+
         return bookService.getResponseEntity(books);
 
     }
@@ -67,6 +71,7 @@ public class SearchController {
     public ResponseEntity searchByAll(@PathVariable String category, @PathVariable String writer, @PathVariable String name) {
 
         List<Book> books = bookService.findAllByCategoryAndWriterAndName(category, writer, name);
+
         return bookService.getResponseEntity(books);
 
     }
@@ -80,6 +85,7 @@ public class SearchController {
     public ResponseEntity searchByWriterOrName(@PathVariable String writer, @PathVariable String name) {
 
         List<Book> books = bookService.findAllByWriterOrName(writer, name);
+
         return bookService.getResponseEntity(books);
 
     }
@@ -93,10 +99,10 @@ public class SearchController {
     public ResponseEntity searchByWriterAndName(@PathVariable String writer, @PathVariable String name) {
 
         List<Book> books = bookService.findAllByWriterAndName(writer, name);
+
         return bookService.getResponseEntity(books);
 
     }
-
 
 
 }

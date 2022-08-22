@@ -8,7 +8,7 @@ Swagger 기본주소 : http://localhost/swagger-ui/
 - Spring Boot 2.7.3
 - MariaDB 10.8.4
 - Swagger 3.0.0
-- Junit
+- Junit5
 
 
 DDL 
@@ -49,3 +49,5 @@ DTO 변경필요 (category참조)
 
 
 대량등록시 insert batch로 변경(만건씩?)
+
+-junit
