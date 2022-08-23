@@ -4,7 +4,6 @@ import com.book.api.dto.*;
 import com.book.api.entity.Book;
 import com.book.api.entity.Category;
 import com.book.api.repository.BookRepository;
-import com.book.api.repository.CategoryRepository;
 import com.book.api.util.DeduplicationUtils;
 
 import org.modelmapper.ModelMapper;
@@ -51,31 +50,25 @@ public class BookService {
             }
         }
 
-        List<Book> books = new ArrayList<>();
+        List<Book> books = newList.stream().map(BookDto -> modelMapper.map(BookDto, Book.class)).collect(Collectors.toList());
+
         List<Category> categories = new ArrayList<>();
+        for (int i = 0; i < books.size(); i++) {
+            int categorySize = books.get(i).getCategoryData().size();
+            for (int j = 0; j < categorySize; j++) {
 
-        for (int i = 0; i < newList.size(); i++) {
-            Book book = new Book();
-            book.setWriter(newList.get(i).getWriter());
-            book.setName(newList.get(i).getName());
-
-            List<CategoryDto> data = new ArrayList<>(newList.get(i).getCategoryData());
-
-            data = DeduplicationUtils.deduplication(data, CategoryDto::getCategory);
-            for (int j = 0; j < data.size(); j++) {
                 Category category = new Category();
-                category.setBook(book);
-                category.setCategory(data.get(j).getCategory());
-                book.getCategoryData().add(category);
+                category.setBook(books.get(i));
+                category.setCategory(books.get(i).getCategoryData().get(j).getCategory());
                 categories.add(category);
-                books.add(book);
+
             }
+            books.get(i).setCategoryData(categories);
         }
         bookRepository.saveAll(books);
 
         return returnList;
     }
-
     public void updateStatus(List<BookDto> bookList) {
 
 
@@ -158,7 +151,7 @@ public class BookService {
 
     public ResponseEntity getResponseEntity(List<Book> books) {
         List<BookDto> returnList = books.stream().map(BookDto::new).collect(Collectors.toList());
-            
+
         if (returnList.size() == 0) {
             ErrorResponse response = new ErrorResponse();
             response.setMessage("NO Book");

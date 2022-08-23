@@ -1,5 +1,6 @@
 package com.book.api.entity;
 
+import com.book.api.dto.CategoryDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.DynamicInsert;
@@ -13,6 +14,7 @@ import java.util.*;
 @Entity(name = "BOOKLIST")
 @Getter
 @Setter
+@ToString
 @DynamicInsert
 @DynamicUpdate
 public class Book {
@@ -24,6 +26,7 @@ public class Book {
     private String name;
     private String status;
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Category> categoryData = new LinkedList<>();
+    private List<Category> categoryData = new ArrayList<>();
+
 
 }

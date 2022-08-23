@@ -1,6 +1,7 @@
 package com.book.api.dto;
 
 import com.book.api.entity.Book;
+import com.book.api.entity.Category;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -34,5 +35,6 @@ public class BookDto {
         categoryData = book.getCategoryData().stream().map(CategoryDto::new).collect(Collectors.toList());
 
     }
+
 
 }
