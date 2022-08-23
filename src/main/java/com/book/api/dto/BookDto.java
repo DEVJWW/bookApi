@@ -2,6 +2,7 @@ package com.book.api.dto;
 
 import com.book.api.entity.Book;
 import com.book.api.entity.Category;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
@@ -22,6 +23,7 @@ public class BookDto {
     private String name;
     @ApiModelProperty(value = "status", example = "대여상태 Y or N")
     private String status;
+    
     @ApiModelProperty(value = "massage", example = "RETURN 메세지")
     private String message;
     private List<CategoryDto> categoryData;

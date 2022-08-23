@@ -56,12 +56,10 @@ public class BookService {
         for (int i = 0; i < books.size(); i++) {
             int categorySize = books.get(i).getCategoryData().size();
             for (int j = 0; j < categorySize; j++) {
-
                 Category category = new Category();
                 category.setBook(books.get(i));
                 category.setCategory(books.get(i).getCategoryData().get(j).getCategory());
                 categories.add(category);
-
             }
             books.get(i).setCategoryData(categories);
         }
