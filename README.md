@@ -40,14 +40,9 @@ CONSTRAINT `categorydata_FK` FOREIGN KEY (`BOOK_ID`) REFERENCES `booklist` (`BOO
 
 
 
-TODO
-
-setter 관련 BUILDER
 
 
-DTO 변경필요 (category참조)
 
 
-대량등록시 insert batch로 변경(만건씩?)
 
--junit
+
