@@ -2,9 +2,8 @@ package com.book.api.service;
 
 import com.book.api.dto.*;
 import com.book.api.entity.Book;
-import com.book.api.entity.Category;
 import com.book.api.repository.BookRepository;
-import com.book.api.util.DeduplicationUtils;
+
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,64 +48,50 @@ public class BookService {
                 newList.add(bookList.get(k));
             }
         }
-
-        List<Book> books = newList.stream().map(BookDto -> modelMapper.map(BookDto, Book.class)).collect(Collectors.toList());
-
-        List<Category> categories = new ArrayList<>();
-        for (int i = 0; i < books.size(); i++) {
+        List<Book> books = newList.stream().map(Book::new).collect(Collectors.toList());
+        for(int i=0;i<books.size();i++){
             int categorySize = books.get(i).getCategoryData().size();
             for (int j = 0; j < categorySize; j++) {
-                Category category = new Category();
-                category.setBook(books.get(i));
-                category.setCategory(books.get(i).getCategoryData().get(j).getCategory());
-                categories.add(category);
+                books.get(i).addCategory(books.get(i).getCategoryData().get(j));
             }
-            books.get(i).setCategoryData(categories);
         }
+
         bookRepository.saveAll(books);
 
         return returnList;
     }
     public void updateStatus(List<BookDto> bookList) {
 
+        List<Book> books = bookList.stream().map(Book::new).collect(Collectors.toList());
 
-        List<Book> books = new ArrayList<>();
-
-        for (int i = 0; i < bookList.size(); i++) {
-            Book book = bookRepository.findById(bookList.get(i).getId())
-                    .orElseThrow(() -> new NoSuchElementException());
-            book.setStatus(bookList.get(i).getStatus());
-            books.add(book);
-        }
         bookRepository.saveAll(books);
 
     }
 
     public void updateCategory(List<BookDto> bookList) {
 
-        List<Book> books = bookList.stream().map(BookDto -> modelMapper.map(BookDto, Book.class)).collect(Collectors.toList());
+        List<Book> books = bookList.stream().map(Book::new).collect(Collectors.toList());
 
         List<Integer> ids = new ArrayList<>();
         for (Book book : books) {
+            System.out.println(book.getId());
             ids.add(book.getId());
         }
         List<Book> booksListById = bookRepository.findAllById(ids);
-
+        System.out.println("?!@"+booksListById.toString());
         for (int i = 0; i < booksListById.size(); i++) {
             booksListById.get(i).getCategoryData().clear();
         }
         bookRepository.saveAll(booksListById);
+        System.out.println(booksListById.toString());
 
-        for (int j = 0; j < booksListById.size(); j++) {
-            List<Category> data = new ArrayList<>(books.get(j).getCategoryData());
-            data = DeduplicationUtils.deduplication(data, Category::getCategory);
-            for (int k = 0; k < data.size(); k++) {
-                Category category = new Category();
-                category.setBook(booksListById.get(j));
-                category.setCategory(data.get(k).getCategory());
-                booksListById.get(j).getCategoryData().add(category);
+        for(int i=0;i<booksListById.size();i++){
+            int categorySize = books.get(i).getCategoryData().size();
+            for (int j = 0; j < categorySize; j++) {
+                booksListById.get(i).addCategory(books.get(i).getCategoryData().get(j));
             }
         }
+
         bookRepository.saveAll(booksListById);
 
     }
