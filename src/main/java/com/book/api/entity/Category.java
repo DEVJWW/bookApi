@@ -14,7 +14,6 @@ import javax.persistence.*;
 @Table(name = "CATEGORYDATA")
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @DynamicInsert
 @DynamicUpdate
 public class Category {

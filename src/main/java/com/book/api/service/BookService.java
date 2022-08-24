@@ -49,12 +49,7 @@ public class BookService {
             }
         }
         List<Book> books = newList.stream().map(Book::new).collect(Collectors.toList());
-        for(int i=0;i<books.size();i++){
-            int categorySize = books.get(i).getCategoryData().size();
-            for (int j = 0; j < categorySize; j++) {
-                books.get(i).addCategory(books.get(i).getCategoryData().get(j));
-            }
-        }
+        books = addCategory(books);
 
         bookRepository.saveAll(books);
 
@@ -78,22 +73,27 @@ public class BookService {
             ids.add(book.getId());
         }
         List<Book> booksListById = bookRepository.findAllById(ids);
-        System.out.println("?!@"+booksListById.toString());
+        
         for (int i = 0; i < booksListById.size(); i++) {
             booksListById.get(i).getCategoryData().clear();
         }
         bookRepository.saveAll(booksListById);
-        System.out.println(booksListById.toString());
 
-        for(int i=0;i<booksListById.size();i++){
-            int categorySize = books.get(i).getCategoryData().size();
-            for (int j = 0; j < categorySize; j++) {
-                booksListById.get(i).addCategory(books.get(i).getCategoryData().get(j));
-            }
-        }
+        booksListById = addCategory(booksListById);
 
         bookRepository.saveAll(booksListById);
 
+    }
+
+    public List<Book> addCategory(List<Book> books){
+
+        for(int i=0;i<books.size();i++){
+            int categorySize = books.get(i).getCategoryData().size();
+            for (int j = 0; j < categorySize; j++) {
+                books.get(i).addCategory(books.get(i).getCategoryData().get(j));
+            }
+        }
+        return  books;
     }
 
     public List<Book> findAllByCategory(String category) {

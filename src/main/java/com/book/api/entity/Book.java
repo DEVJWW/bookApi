@@ -9,13 +9,13 @@ import org.hibernate.annotations.DynamicUpdate;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.persistence.*;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 
 
 @Entity(name = "BOOKLIST")
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 @DynamicInsert
 @DynamicUpdate
